@@ -1,7 +1,7 @@
 ---
 name: backed
 about: バック側のissueテンプレートです
-title: "[]のAPIの作成"
+title: "[]API"
 labels: back
 assignees: ''
 
