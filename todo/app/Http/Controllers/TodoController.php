@@ -6,18 +6,20 @@ use App\Http\Requests\TodoCreateRequest;
 use App\Http\Resources\TodoResource;
 use App\Models\Todo;
 use App\Models\User;
+use App\Services\Todo\TodoCreateService;
 use Illuminate\Http\Request;
 
 class TodoController extends Controller
 {
     public function create(TodoCreateRequest $request)
     {
-        $user = User::findOrFail($request->userId);
-        $todo = new Todo();
-        $todo->title = $request->title;
-        $todo->description = $request->description;
-        $todo->user_id = $user->id;
-        $todo->save();
+        $parameters = [
+            'title' => $request->title,
+            'description' => $request->description,
+            'user_id' => $request->userId,
+        ];
+        $service = new TodoCreateService();
+        $todo = $service->main($parameters);
         return TodoResource::make($todo);
     }
 

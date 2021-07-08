@@ -19,7 +19,7 @@ class TodoCreateTest extends TestCase
     {
         $this->expectException(ModelNotFoundException::class);
         $input = [
-            'userId' => 0,
+            'user_id' => 0,
             'title' => 'title',
             'description' => 'description',
         ];
@@ -33,7 +33,7 @@ class TodoCreateTest extends TestCase
         $user = User::factory()->create();
 
         $input = [
-            'userId' => $user->id,
+            'user_id' => $user->id,
             'title' => 'title',
             'description' => 'description',
         ];
@@ -42,7 +42,7 @@ class TodoCreateTest extends TestCase
 
         $expected = [
             'id' => $todo->id,
-            'userId' => $user->id,
+            'user_id' => $user->id,
             'title' => 'title',
             'description' => 'description',
         ];
