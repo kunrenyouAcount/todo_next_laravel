@@ -12,13 +12,6 @@ class TodoController extends Controller
 {
     public function create(TodoCreateRequest $request)
     {
-        // $user = new User();
-        // $user->email = 'test@test.test';
-        // $user->pass = 'password';
-        // $user->name = '山田太郎';
-        // $user->save();
-        // return $user;
-
         $user = User::findOrFail($request->userId);
         $todo = new Todo();
         $todo->title = $request->title;
