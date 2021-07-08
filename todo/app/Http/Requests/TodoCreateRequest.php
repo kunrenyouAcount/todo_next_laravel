@@ -38,6 +38,7 @@ class TodoCreateRequest extends FormRequest
         return [
             'userId.required' => 'ユーザーIDは必須項目です',
             'title.required' => 'タイトルは必須項目です',
+            'description.string' => '説明文は文字列で入力してください',
         ];
     }
 
