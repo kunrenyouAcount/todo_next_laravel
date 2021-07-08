@@ -2,29 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TodoCreateRequest;
+use App\Http\Resources\TodoResource;
 use App\Models\Todo;
+use App\Models\User;
+use App\Services\Todo\TodoCreateService;
 use Illuminate\Http\Request;
 
 class TodoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function create(TodoCreateRequest $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $parameters = [
+            'title' => $request->title,
+            'description' => $request->description,
+            'user_id' => $request->userId,
+        ];
+        $service = new TodoCreateService();
+        $todo = $service->main($parameters);
+        return TodoResource::make($todo);
     }
 
     /**

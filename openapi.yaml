@@ -1,0 +1,310 @@
+openapi: 3.0.0
+info:
+  description: Todo Service API
+  title: Todo API
+  version: "1.0"
+servers:
+- url: http://localhost:8080
+  description: 接続先
+tags:
+- description: Todo
+  name: Todo
+- description: User
+  name: User
+paths:
+  /todos/{todoId}/:
+    delete:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoId'
+          description: |
+            削除したTodoのIDを返却します。
+        "404":
+          description: Not Found
+        "422":
+          description: Validation Error
+      summary: |
+        Todoを削除します。
+        指定したカードが存在しない場合、404を返します。
+      tags:
+      - Todo
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+          description: |
+            Todoの詳細情報を返却します。
+        "404":
+          description: Not Found
+      summary: |
+        指定したTodoを取得します。
+        指定したTodoが存在しない場合、404を返します。
+      tags:
+      - Todo
+    patch:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoUpdateRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+          description: |
+            更新したTodoを返却します。
+        "404":
+          description: Not Found
+        "422":
+          description: Validation Error
+      summary: |
+        Todoの内容（タイトル、説明文）を更新します。
+        指定したTodoが存在しない場合、404を返します。
+        タイトルは必須項目です。タイトルの入力がなかった場合、422を返します。
+      tags:
+      - Todo
+  /todos/:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todos'
+          description: |
+            取得したTodoの一覧を返却します。
+      summary: |
+        Todoをすべて取得します。
+      tags:
+      - Todo
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoCreateRequest'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+          description: |
+            作成したTodoを返却します。
+        "404":
+          description: NOT FOUND
+        "422":
+          description: Validation Error
+      summary: |
+        新規にTodoを作成します。
+        所属するユーザーのID（userId）は必須です。
+        存在しないユーザーのIDを指定した場合、404を返却します。
+      tags:
+      - Todo
+  /users/{userId}/:
+    delete:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserId'
+          description: 削除したユーザーのIDを返します
+        "404":
+          description: Not Found
+        "422":
+          description: Validation Error
+      summary: |
+        ユーザーを削除します。
+        紐づいているTodoが存在する場合、ユーザーを削除することはできません。
+        この場合、422を返します。
+        指定したユーザーが存在しない場合、404を返します。
+      tags:
+      - User
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: 取得したユーザーを返します
+        "404":
+          description: Not Found
+      summary: |
+        指定したユーザーを取得します。
+      tags:
+      - User
+  /users/:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreateRequest'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: |
+            作成したカユーザー返却します。
+        "422":
+          description: Validation Error
+      summary: |
+        ユーザーを新規に作成します。
+        emailとpassは必須項目です。入力されていない場合、422を返します。
+      tags:
+      - User
+components:
+  schemas:
+    TodoId:
+      example:
+        id: id
+      properties:
+        id:
+          type: string
+      required:
+      - id
+      type: object
+    Todo:
+      example:
+        id: id
+        userId: userId
+        title: title
+        description: description
+        createdAt: createdAt
+        updatedAt: updatedAt
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        title:
+          type: string
+        description:
+          nullable: true
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+      - id
+      - userId
+      - title
+      - description
+      - createdAt
+      - updatedAt
+      type: object
+    Todos:
+      example:
+          - id: id
+            title: title
+            description: description
+            createdAt: createdAt
+            updatedAt: updatedAt            
+          - id: id
+            title: title
+            description: description
+            createdAt: createdAt
+            updatedAt: updatedAt
+      properties:
+        todos:
+          items:
+            $ref: '#/components/schemas/Todo'
+          type: array
+      required:
+        - todos
+    TodoUpdateRequest:
+      example:
+        title: title
+        description: description
+      properties:
+        title:
+          type: string
+        description:
+          nullable: true
+          type: string
+      required:
+      - title
+      - description
+      type: object
+    TodoCreateRequest:
+      example:
+        userId: userId
+        title: title
+        description: description
+      properties:
+        userId:
+          type: string
+        title:
+          type: string
+        description:
+          nullable: true
+          type: string
+      required:
+      - userId
+      - title
+      - description
+      type: object
+    UserId:
+      example:
+        id: id
+      properties:
+        id:
+          type: string
+      required:
+      - id
+      type: object
+    User:
+      example:
+        id: id
+        email: title
+        pass: pass
+        createdAt: createdAt
+        updatedAt: updatedAt
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        pass:
+          type: integer
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+      - id
+      - email
+      - pass
+      - createdAt
+      - updatedAt
+      type: object
+    UserCreateRequest:
+      example:
+        email: email
+        pass: pass
+        name: name
+      properties:
+        email:
+          type: string
+        pass:
+          type: string
+        name:
+          type: string
+      required:
+      - email
+      - pass
+      - name
+      type: object
