@@ -7,6 +7,8 @@ use App\Http\Resources\TodoResource;
 use App\Models\Todo;
 use App\Models\User;
 use App\Services\Todo\TodoCreateService;
+use App\Services\Todo\TodoFetchService;
+use App\Services\Todo\TodoFetchOneService;
 use Illuminate\Http\Request;
 
 class TodoController extends Controller
@@ -20,6 +22,20 @@ class TodoController extends Controller
         ];
         $service = new TodoCreateService();
         $todo = $service->main($parameters);
+        return TodoResource::make($todo);
+    }
+
+    public function fetch()
+    {
+        $service = new TodoFetchService();
+        $todos = $service->main();
+        return TodoResource::collection($todos);
+    }
+
+    public function fetchOne(int $todoId)
+    {
+        $service = new TodoFetchOneService();
+        $todo = $service->main($todoId);
         return TodoResource::make($todo);
     }
 
