@@ -18,4 +18,5 @@ Route::group(['middleware' => ['api']], function () {
     Route::post('todos', 'TodoController@create');
     Route::get('todos', 'TodoController@fetch');
     Route::get('todos/{todoId}', 'TodoController@fetchOne');
+    Route::delete('todos/{todoId}', 'TodoController@delete');
 });
