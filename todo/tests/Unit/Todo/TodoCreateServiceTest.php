@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Todo;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -9,23 +9,10 @@ use \Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Models\User;
 use App\Services\Todo\TodoCreateService;
 
-class TodoCreateTest extends TestCase
+class TodoCreateServiceTest extends TestCase
 {
 
     use RefreshDatabase;
-
-    /** @test */
-    public function 指定したuserIDが存在しない場合、ModelNotFoundException例外を返す()
-    {
-        $this->expectException(ModelNotFoundException::class);
-        $input = [
-            'user_id' => 0,
-            'title' => 'title',
-            'description' => 'description',
-        ];
-        $service = new TodoCreateService();
-        $service->main($input);
-    }
 
     /** @test */
     public function 入力値が正しく登録ができる()

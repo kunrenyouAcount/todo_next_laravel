@@ -4,14 +4,13 @@ namespace App\Services\Todo;
 
 use \App\Models\Todo;
 
-final class TodoCreateService
+final class TodoUpdateService
 {
     public function main(array $parameters): Todo
     {
-        $todo = new Todo();
+        $todo = Todo::findOrFail($parameters['id']);
         $todo->title = $parameters['title'];
         $todo->description = $parameters['description'];
-        $todo->user_id = $parameters['user_id'];
         $todo->save();
 
         return $todo;
