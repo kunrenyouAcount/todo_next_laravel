@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TodoCreateRequest;
 use App\Http\Resources\TodoResource;
+use App\Http\Resources\TodoIdResource;
 use App\Models\Todo;
 use App\Models\User;
 use App\Services\Todo\TodoCreateService;
 use App\Services\Todo\TodoFetchService;
 use App\Services\Todo\TodoFetchOneService;
+use App\Services\Todo\TodoDeleteService;
 use Illuminate\Http\Request;
 
 class TodoController extends Controller
@@ -39,59 +41,10 @@ class TodoController extends Controller
         return TodoResource::make($todo);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function delete(int $todoId)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Todo  $todo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Todo $todo)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Todo  $todo
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Todo $todo)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Todo  $todo
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Todo $todo)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Todo  $todo
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Todo $todo)
-    {
-        //
+        $service = new TodoDeleteService();
+        $deleteId = $service->main($todoId);
+        return TodoIdResource::make($deleteId);
     }
 }
