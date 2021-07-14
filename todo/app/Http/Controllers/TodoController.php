@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TodoCreateRequest;
+use App\Http\Requests\TodoUpdateRequest;
 use App\Http\Resources\TodoResource;
 use App\Http\Resources\TodoIdResource;
-use App\Models\Todo;
-use App\Models\User;
 use App\Services\Todo\TodoCreateService;
 use App\Services\Todo\TodoFetchService;
 use App\Services\Todo\TodoFetchOneService;
 use App\Services\Todo\TodoDeleteService;
-use Illuminate\Http\Request;
+use App\Services\Todo\TodoUpdateService;
 
 class TodoController extends Controller
 {
@@ -46,5 +45,17 @@ class TodoController extends Controller
         $service = new TodoDeleteService();
         $deleteId = $service->main($todoId);
         return TodoIdResource::make($deleteId);
+    }
+
+    public function update(int $todoId, TodoUpdateRequest $request)
+    {
+        $service = new TodoUpdateService();
+        $parameters = [
+            'id' => $todoId,
+            'title' => $request->title,
+            'description' => $request->description,
+        ];
+        $todo = $service->main($parameters);
+        return TodoIdResource::make($todo);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Todo;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -10,7 +10,7 @@ use App\Models\Todo;
 use App\Services\Todo\TodoDeleteService;
 
 
-class TodoDeleteTest extends TestCase
+class TodoDeleteServiceTest extends TestCase
 {
 
     use RefreshDatabase;

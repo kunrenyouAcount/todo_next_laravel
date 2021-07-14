@@ -19,4 +19,5 @@ Route::group(['middleware' => ['api']], function () {
     Route::get('todos', 'TodoController@fetch');
     Route::get('todos/{todoId}', 'TodoController@fetchOne');
     Route::delete('todos/{todoId}', 'TodoController@delete');
+    Route::patch('todos/{todoId}', 'TodoController@update');
 });
