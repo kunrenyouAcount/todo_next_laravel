@@ -10,7 +10,7 @@ export const Home = (): JSX.Element => (
 
     <main>
       <h1 className="title">
-        Welcome to <a href="https://nextjs.org">Next.js!</a>
+        aaaaa to <a href="https://nextjs.org">Next.js!</a>
       </h1>
 
       <p className="description">
