@@ -41,7 +41,7 @@ const TodoEdit: React.FC = () => {
 
   return (
     <div>
-      <h1>Todo Edit</h1>
+      <h1>TodoEdit</h1>
       <div className={styles.todoForm}>
         <input
           className={styles.todoTitleInput}

@@ -1,22 +1,23 @@
-.todoForm {
+.loginForm {
   width: 400px;
   margin: 8px 16px;
   padding-bottom: 16px;
   border-bottom: 1px solid #aaa;
 }
 
-.todoTitleInput {
+.loginInput {
   line-height: 20px;
   width: 500px;
   margin: 6px 0;
 }
 
-.todoDescriptionInput {
+.loginInput {
+  line-height: 20px;
   width: 500px;
-  margin: 0 0 6px 0;
+  margin: 6px 0;
 }
 
-.todoDeleteButton {
+.loginButton {
   margin-bottom: 20px;
   padding: 8px;
   border: none;
@@ -26,16 +27,16 @@
   position: relative;
   cursor: pointer;
   text-align: center;
-  border: 3px solid #dc3545;
+  border: 3px solid #007bff;
   border-radius: 5px;
-  background-color: #dc3545;
+  background-color: #007bff;
   color: #fff;
   transition: 0.3s all;
 }
-.todoDeleteButton:hover {
-  border: 3px solid #dc3545;
+.loginButton:hover {
+  border: 3px solid #007bff;
   background-color: #efefef;
-  color: #dc3545;
+  color: #007bff;
 }
 
 .backButton {

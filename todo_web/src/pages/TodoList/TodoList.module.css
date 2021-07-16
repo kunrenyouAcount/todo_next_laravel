@@ -26,14 +26,36 @@
   position: relative;
   cursor: pointer;
   text-align: center;
-  border: 3px solid #5f5f5f;
+  border: 3px solid #007bff;
   border-radius: 5px;
-  background-color: #5f5f5f;
+  background-color: #007bff;
   color: #fff;
   transition: 0.3s all;
 }
 .todoAddButton:hover {
-  border: 3px solid #5f5f5f;
+  border: 3px solid #007bff;
   background-color: #efefef;
-  color: #2f2f2f;
+  color: #007bff;
+}
+
+.backButton {
+  margin-bottom: 20px;
+  padding: 8px;
+  border: none;
+  box-sizing: border-box;
+  width: 500px;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+  border: 3px solid #6c757d;
+  border-radius: 5px;
+  background-color: #6c757d;
+  color: #fff;
+  transition: 0.3s all;
+}
+.backButton:hover {
+  border: 3px solid #6c757d;
+  background-color: #efefef;
+  color: #6c757d;
 }

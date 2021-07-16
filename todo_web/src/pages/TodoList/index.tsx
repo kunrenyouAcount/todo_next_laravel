@@ -30,6 +30,7 @@ export const TodoList: React.FC = () => {
 
   return (
     <>
+      <h1>TodoList</h1>
       <div className={styles.todoForm}>
         <input className={styles.todoTitleInput} onChange={changedTitle} />
         <textarea
@@ -37,13 +38,16 @@ export const TodoList: React.FC = () => {
           onChange={changedDescription}
         />
         <div>
+          <button className={styles.backButton} onClick={() => router.back()}>
+            back
+          </button>
           <button
             className={styles.todoAddButton}
             onClick={() => {
               dispatch(addTodo(todo));
             }}
           >
-            Click Me!!!
+            Add
           </button>
         </div>
       </div>
