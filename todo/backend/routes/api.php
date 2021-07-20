@@ -14,6 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group([
+    'prefix' => 'auth'
+], function () {
+    Route::post('login', 'AuthController@login');
+});
+
+Route::group([
+    'prefix' => 'auth',
+    'middleware' => 'auth:api'
+], function () {
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+});
+
 Route::group(['middleware' => ['api']], function () {
     Route::post('todos', 'TodoController@create');
     Route::get('todos', 'TodoController@fetch');
