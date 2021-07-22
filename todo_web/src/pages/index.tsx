@@ -12,12 +12,27 @@ export const Home: React.FC = () => {
       </Head>
 
       <main>
+        <h1>Home</h1>
+        <button
+          onClick={() => {
+            router.push("/Register");
+          }}
+        >
+          Register
+        </button>
+        <button
+          onClick={() => {
+            router.push("/Login");
+          }}
+        >
+          Login
+        </button>
         <button
           onClick={() => {
             router.push("TodoList");
           }}
         >
-          Test Button
+          Todo
         </button>
       </main>
     </div>
