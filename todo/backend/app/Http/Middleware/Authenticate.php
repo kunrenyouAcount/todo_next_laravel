@@ -16,7 +16,7 @@ class Authenticate extends Middleware
     {
         if (!$request->expectsJson()) {
             //ログイン画面にする
-            return 'https://www.google.co.jp/';
+            return 'http://localhost:3000/Login';
         }
     }
 }

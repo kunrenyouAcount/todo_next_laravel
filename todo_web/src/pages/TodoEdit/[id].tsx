@@ -1,10 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { useRouter } from "next/router";
 import styles from "./TodoEdit.module.css";
 import { useState } from "react";
 import { Todo } from "../../models/Todo";
-import { deleteTodo } from "../../modules/TodosModule";
 
 const TodoEdit: React.FC = () => {
   const router = useRouter();
@@ -14,11 +13,11 @@ const TodoEdit: React.FC = () => {
   }
   const id = parseInt(paramsId);
 
-  const { todos } = useSelector((state: RootState) => state.todos);
+  const todos = useSelector((state: RootState) => state.todos);
   const initTodo = todos.find((todo) => todo.id === id);
   const [todo, setTodo] = useState<Todo>(initTodo);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const changedTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     //左側の引数に対して、右側の値をマージする
@@ -34,14 +33,14 @@ const TodoEdit: React.FC = () => {
     setTodo(newTodo);
   };
 
-  const deleteClick = async () => {
-    dispatch(deleteTodo(todo.id));
-    router.push("/TodoList");
-  };
+  // const deleteClick = async () => {
+  //   dispatch(deleteTodo(todo.id));
+  //   router.push("/TodoList");
+  // };
 
   return (
     <div>
-      <h1>Todo Edit</h1>
+      <h1>TodoEdit</h1>
       <div className={styles.todoForm}>
         <input
           className={styles.todoTitleInput}
@@ -56,7 +55,10 @@ const TodoEdit: React.FC = () => {
         <button className={styles.backButton} onClick={() => router.back()}>
           back
         </button>
-        <button className={styles.todoDeleteButton} onClick={deleteClick}>
+        <button
+          className={styles.todoDeleteButton}
+          //  onClick={deleteClick}
+        >
           delete
         </button>
       </div>

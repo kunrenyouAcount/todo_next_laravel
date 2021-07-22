@@ -27,7 +27,6 @@ class TodoCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'userId' => 'required',
             'title' => 'required',
             'description' => 'nullable',
         ];
@@ -36,7 +35,6 @@ class TodoCreateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'userId.required' => 'ユーザーIDは必須項目です',
             'title.required' => 'タイトルは必須項目です',
             'description.string' => '説明文は文字列で入力してください',
         ];

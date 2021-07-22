@@ -1,18 +1,42 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import { RootState } from "../../app/store";
 import { TodoItem } from "../../components/TodoItem/TodoItem";
 import { useRouter } from "next/router";
 import styles from "./TodoList.module.css";
 import { useState } from "react";
 import { Todo, initTodo } from "../../models/Todo";
-import { addTodo } from "../../modules/TodosModule";
+import Axios from "axios";
+import { initialTodos } from "../../modules/TodosModule";
+import { getCookieValue, todo_token_key } from "../../utils/Cookie";
 
 export const TodoList: React.FC = () => {
-  const { todos } = useSelector((state: RootState) => state.todos);
   const [todo, setTodo] = useState<Todo>(initTodo);
 
   const router = useRouter();
+  const isReady = router.isReady;
+  if (!isReady) {
+    return <></>;
+  }
+
+  const token = getCookieValue(todo_token_key);
+  if (token === "") {
+    router.push("/Login");
+  }
+
+  const todos = useSelector((state: RootState) => state.todos);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    (async () => {
+      const response = await Axios.get<Todo[]>("todos", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      dispatch(initialTodos(response.data));
+    })();
+  }, [dispatch, initialTodos]);
 
   const changedTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     //左側の引数に対して、右側の値をマージする
@@ -28,8 +52,13 @@ export const TodoList: React.FC = () => {
     setTodo(newTodo);
   };
 
+  const addClick = async () => {
+    // await Axios.post<Todo, AxiosResponse<string>>("todos", todo);
+  };
+
   return (
-    <>
+    <div>
+      <h1>TodoList</h1>
       <div className={styles.todoForm}>
         <input className={styles.todoTitleInput} onChange={changedTitle} />
         <textarea
@@ -37,12 +66,7 @@ export const TodoList: React.FC = () => {
           onChange={changedDescription}
         />
         <div>
-          <button
-            className={styles.todoAddButton}
-            onClick={() => {
-              dispatch(addTodo(todo));
-            }}
-          >
+          <button className={styles.todoAddButton} onClick={addClick}>
             Click Me!!!
           </button>
         </div>
@@ -58,7 +82,8 @@ export const TodoList: React.FC = () => {
           />
         );
       })}
-    </>
+      <div />
+    </div>
   );
 };
 

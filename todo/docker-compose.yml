@@ -21,3 +21,15 @@ services:
       - 3306:3306
     volumes:
       - ./infra/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+
+  phpmyadmin:
+    hostname: pma
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    environment:
+      PMA_USER: training_user
+      PMA_PASSWORD: secret
+    ports:
+      - 3307:80
+    links:
+      - db:db

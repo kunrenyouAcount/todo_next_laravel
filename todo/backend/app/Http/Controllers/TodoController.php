@@ -19,7 +19,8 @@ class TodoController extends Controller
         $parameters = [
             'title' => $request->title,
             'description' => $request->description,
-            'user_id' => $request->userId,
+            'user_id' => 1,
+            'user_id' => auth()->user()->id,
         ];
         $service = new TodoCreateService();
         $todo = $service->main($parameters);
