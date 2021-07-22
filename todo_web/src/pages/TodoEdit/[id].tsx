@@ -52,6 +52,7 @@ const TodoEdit: React.FC = () => {
           value={todo.description}
           onChange={changedDescription}
         />
+        <button className={styles.todoUpdateButton}>update</button>
         <button className={styles.backButton} onClick={() => router.back()}>
           back
         </button>

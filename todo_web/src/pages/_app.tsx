@@ -5,7 +5,7 @@ import store from "../app/store";
 import Axios from "axios";
 
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
-  Axios.defaults.baseURL = "http://localhost:8080/api/";
+  Axios.defaults.baseURL = "http://localhost:4000/api/";
   Axios.defaults.validateStatus = (status) =>
     (status >= 200 && status < 300) ||
     status == 400 ||

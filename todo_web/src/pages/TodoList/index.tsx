@@ -65,12 +65,10 @@ export const TodoList: React.FC = () => {
           className={styles.todoDescriptionInput}
           onChange={changedDescription}
         />
-        <div>
-          <button className={styles.todoAddButton} onClick={addClick}>
-            Click Me!!!
-          </button>
-        </div>
       </div>
+      <button className={styles.todoAddButton} onClick={addClick}>
+        add
+      </button>
       {todos.map((todo) => {
         return (
           <TodoItem
@@ -82,7 +80,6 @@ export const TodoList: React.FC = () => {
           />
         );
       })}
-      <div />
     </div>
   );
 };
