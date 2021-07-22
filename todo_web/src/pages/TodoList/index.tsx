@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
-import { TodoItem } from "../../components/TodoItem";
+import { TodoItem } from "../../components/TodoItem/TodoItem";
 import { useRouter } from "next/router";
 import styles from "./TodoList.module.css";
 import { useState } from "react";
